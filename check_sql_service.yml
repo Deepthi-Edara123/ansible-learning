@@ -1,0 +1,13 @@
+- name: Check SQL Server Service
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: Check SQL Server service
+      ansible.windows.win_service_info:
+        name: MSSQLSERVER
+      register: sql_service
+
+    - name: Display SQL Server status
+      ansible.builtin.debug:
+        msg: "SQL Server status: {{ sql_service.services[0].state }}"
